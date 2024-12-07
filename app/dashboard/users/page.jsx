@@ -4,8 +4,13 @@ import Search from '@/app/ui/dashboard/search/Search'
 import Link from 'next/link'
 import Image from 'next/image'
 import Pagination from '@/app/ui/dashboard/pagination/Pagination'
+import { fetchUsers } from '@/app/lib/data'
 
-export default function UsersPage() {
+export default async function UsersPage() {
+
+  // Fetch All Users
+  const users = await fetchUsers();
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -26,37 +31,39 @@ export default function UsersPage() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div className={styles.user}>
-                <Image
-                  src="/transactions/noavatar.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className={styles.userImage}
-                />
-                John Doe
-              </div>
-            </td>
-            <td>john@gmail.com</td>
-            <td>07.12.2024</td>
-            <td>Admin</td>
-            <td>Active</td>
-            <td>
-              <div className={styles.buttons}>
-                <Link href='/dashboard/users/test'>
-                  <button className={`${styles.button} ${styles.view}`}>
-                    View
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>
+                <div className={styles.user}>
+                  <Image
+                    src={user.img || "/transactions/noavatar.png"}
+                    alt="user-image"
+                    width={40}
+                    height={40}
+                    className={styles.userImage}
+                  />
+                  {user.username}
+                </div>
+              </td>
+              <td>{user.email}</td>
+              <td>07.12.2024</td>
+              <td>Admin</td>
+              <td>Active</td>
+              <td>
+                <div className={styles.buttons}>
+                  <Link href='/dashboard/users/test'>
+                    <button className={`${styles.button} ${styles.view}`}>
+                      View
+                    </button>
+                  </Link>
+                  <input type="hidden" name="id" />
+                  <button className={`${styles.button} ${styles.delete}`}>
+                    Delete
                   </button>
-                </Link>
-                <input type="hidden" name="id" />
-                <button className={`${styles.button} ${styles.delete}`}>
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Pagination />
