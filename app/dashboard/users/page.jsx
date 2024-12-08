@@ -6,10 +6,11 @@ import Image from 'next/image'
 import Pagination from '@/app/ui/dashboard/pagination/Pagination'
 import { fetchUsers } from '@/app/lib/data'
 
-export default async function UsersPage() {
-
+export default async function UsersPage({ searchParams }) {
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
   // Fetch All Users
-  const users = await fetchUsers();
+  const { count, users } = await fetchUsers({ q, page });
 
   return (
     <div className={styles.container}>
@@ -46,12 +47,12 @@ export default async function UsersPage() {
                 </div>
               </td>
               <td>{user.email}</td>
-              <td>07.12.2024</td>
-              <td>Admin</td>
-              <td>Active</td>
+              <td>{user.createdAt?.toString().slice(4, 16)}</td>
+              <td>{user.isAdmin ? "Admin" : "Client"}</td>
+              <td>{user.isActive ? "Active" : "Passive"}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href='/dashboard/users/test'>
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       View
                     </button>
@@ -66,7 +67,7 @@ export default async function UsersPage() {
           ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   )
 }
