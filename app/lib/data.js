@@ -11,7 +11,7 @@ export const fetchUsers = async ({ q, page }) => {
         return { count, users };
     } catch (error) {
         console.log(error);
-        throw new Error('Failed to fetch users');
+        throw new Error('Failed to fetch users!');
     }
 }
 
@@ -26,6 +26,28 @@ export const fetchProducts = async ({ q, page }) => {
         return { count, products };
     } catch (error) {
         console.log(error);
-        throw new Error('Failed to fetch products');
+        throw new Error('Failed to fetch products!');
     }
 }
+
+export const fetchSingleUser = async (id) => {
+    try {
+        await connectToDB();
+        const user = await User.findById(id);
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to fetch single user!');
+    }
+};
+
+export const fetchSingleProduct = async (id) => {
+    try {
+        await connectToDB();
+        const product = await Product.findById(id);
+        return product;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to fetch single product!');
+    }
+};
