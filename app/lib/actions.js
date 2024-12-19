@@ -4,6 +4,7 @@ import { Product, User } from "./model";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
+import { signIn } from "../auth";
 
 //add user
 export const addUser = async (formData) => {
@@ -118,32 +119,44 @@ export const updateUser = async (formData) => {
 //update product
 export const updateProduct = async (formData) => {
     const { id, title, desc, price, stock, color, size } =
-      Object.fromEntries(formData);
-  
+        Object.fromEntries(formData);
+
     try {
-      connectToDB();
-  
-      const updateFields = {
-        title,
-        desc,
-        price,
-        stock,
-        color,
-        size,
-      };
-  
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
-  
-      await Product.findByIdAndUpdate(id, updateFields);
+        connectToDB();
+
+        const updateFields = {
+            title,
+            desc,
+            price,
+            stock,
+            color,
+            size,
+        };
+
+        Object.keys(updateFields).forEach(
+            (key) =>
+                (updateFields[key] === "" || undefined) && delete updateFields[key]
+        );
+
+        await Product.findByIdAndUpdate(id, updateFields);
     } catch (err) {
-      console.log(err);
-      throw new Error("Failed to update product!");
+        console.log(err);
+        throw new Error("Failed to update product!");
     }
-  
+
     revalidatePath("/dashboard/products");
     redirect("/dashboard/products");
-  };
-  
+};
+
+export const authenticate = async (formData) => {
+    const { username, password } = Object.fromEntries(formData);
+
+    try {
+        await signIn("credentials", { username, password });
+    } catch (err) {
+        if (err.message.includes("CredentialsSignin")) {
+            return "Wrong Credentials";
+        }
+        throw err;
+    }
+};
