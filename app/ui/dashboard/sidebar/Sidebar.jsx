@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from "./sidebar.module.css"
+import React from "react";
+import styles from "./sidebar.module.css";
 import {
   MdDashboard,
   MdSupervisedUserCircle,
@@ -12,8 +12,9 @@ import {
   MdHelpCenter,
   MdLogout,
 } from "react-icons/md";
-import MenuLink from './menulink/MenuLink';
-import Image from 'next/image';
+import MenuLink from "./menulink/MenuLink";
+import Image from "next/image";
+import { auth, signOut } from "@/app/auth";
 
 const menuItems = [
   {
@@ -78,13 +79,20 @@ const menuItems = [
   },
 ];
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const { user }  = await auth();
   return (
     <div className={styles.container}>
       <div className={styles.user}>
-        <Image src="/sidebar/profile.jpeg" width={50} height={50} alt='profile' className={styles.userImage} />
+        <Image
+          src={user.img || "/sidebar/profile.jpeg"}
+          width={50}
+          height={50}
+          alt="profile"
+          className={styles.userImage}
+        />
         <div className={styles.userDetail}>
-          <span className={styles.username}>John Doe</span>
+          <span className={styles.username}>{user.username}</span>
           <span className={styles.userTitle}>Administrator</span>
         </div>
       </div>
@@ -98,10 +106,17 @@ export default function Sidebar() {
           </li>
         ))}
       </ul>
-      <button className={styles.logout}>
-        <MdLogout />
-        Logout
-      </button>
+      <form
+        action={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
+        <button className={styles.logout}>
+          <MdLogout />
+          Logout
+        </button>
+      </form>
     </div>
-  )
+  );
 }
