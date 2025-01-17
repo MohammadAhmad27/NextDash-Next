@@ -1,11 +1,11 @@
 import React from 'react'
-import styles from '../../ui/dashboard/users/users.module.css'
-import Search from '@/app/ui/dashboard/search/Search'
+import styles from '@/ui/dashboard/users/users.module.css'
+import Search from '@/ui/dashboard/search/Search'
 import Link from 'next/link'
 import Image from 'next/image'
-import Pagination from '@/app/ui/dashboard/pagination/Pagination'
-import { fetchUsers } from '@/app/lib/data'
-import { deleteUser } from '@/app/lib/actions'
+import Pagination from '@/ui/dashboard/pagination.js'
+import { fetchUsers } from '@/lib/data.js'
+import { deleteUser } from '@/lib/actions.js'
 
 export default async function UsersPage({ searchParams }) {
   const q = searchParams?.q || "";

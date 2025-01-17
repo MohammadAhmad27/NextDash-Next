@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./loginform.module.css";
-import { authenticate } from "@/app/lib/actions";
+import { authenticate } from "@/lib/actions";
 import { useFormState } from "react-dom";
 
 export default function LoginForm() {
@@ -10,8 +10,8 @@ export default function LoginForm() {
     return (
         <form action={formActiom} className={styles.form}>
             <h1>Login</h1>
-            <input type="text" placeholder="username" name="username" />
-            <input type="password" placeholder="password" name="password" />
+            <input type="text" placeholder="username: waleed" name="username" />
+            <input type="password" placeholder="password: waleed" name="password" />
             <button>Login</button>
             {state && state}
         </form>

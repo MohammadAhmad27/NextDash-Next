@@ -1,8 +1,8 @@
 import React from 'react'
-import styles from '@/app/ui/dashboard/products/singleproduct/singleproduct.module.css'
+import styles from '@/ui/dashboard/products/singleproduct/singleproduct.module.css'
 import Image from 'next/image'
-import { fetchSingleProduct } from '@/app/lib/data'
-import { updateProduct } from '@/app/lib/actions';
+import { fetchSingleProduct } from '@/lib/data'
+import { updateProduct } from '@/lib/actions';
 export default async function SingleProductPage({ params }) {
   const { id } = params;
   const product = await fetchSingleProduct(id);

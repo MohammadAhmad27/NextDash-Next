@@ -1,6 +1,6 @@
 import React from 'react'
-import styles from '@/app/ui/dashboard/products/addproduct/addproduct.module.css'
-import { addProduct } from '@/app/lib/actions'
+import styles from '@/ui/dashboard/products/addproduct/addproduct.module.css'
+import { addProduct } from '@/lib/actions'
 
 export default function AddProductPage() {
   return (

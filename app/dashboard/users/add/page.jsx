@@ -1,6 +1,6 @@
 import React from 'react'
-import styles from '@/app/ui/dashboard/users/adduser/adduser.module.css'
-import { addUser } from '@/app/lib/actions'
+import styles from '@/ui/dashboard/users/adduser/adduser.module.css'
+import { addUser } from '@/lib/actions.js'
 
 export default function AddUserPage() {
   return (
