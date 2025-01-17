@@ -3,9 +3,9 @@ import styles from '@/ui/dashboard/users/users.module.css'
 import Search from '@/ui/dashboard/search/Search'
 import Link from 'next/link'
 import Image from 'next/image'
-import Pagination from '@/ui/dashboard/pagination.js'
 import { fetchUsers } from '@/lib/data.js'
 import { deleteUser } from '@/lib/actions.js'
+import Pagination from '@/ui/dashboard/pagination/Pagination'
 
 export default async function UsersPage({ searchParams }) {
   const q = searchParams?.q || "";
