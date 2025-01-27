@@ -7,7 +7,7 @@ export default function Login() {
   connectToDB();
   return (
     <div className={styles.container}>
-      <LoginForm />
+      {/* <LoginForm /> */}
     </div>
   )
 }
