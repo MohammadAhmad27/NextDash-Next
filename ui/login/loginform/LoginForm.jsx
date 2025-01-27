@@ -5,10 +5,10 @@ import { authenticate } from "@/lib/actions";
 import { useFormState } from "react-dom";
 
 export default function LoginForm() {
-    const [state, formActiom] = useFormState(authenticate, undefined);
+    const [state, formAction] = useFormState(authenticate, undefined);
 
     return (
-        <form action={formActiom} className={styles.form}>
+        <form action={formAction} className={styles.form}>
             <h1>Login</h1>
             <input type="text" placeholder="username: waleed" name="username" />
             <input type="password" placeholder="password: waleed" name="password" />
